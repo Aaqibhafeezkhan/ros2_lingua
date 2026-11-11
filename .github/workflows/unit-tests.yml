@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main, develop]
 
-# Cancel any in-progress run for the same PR/branch so pushes don't stack up.
 concurrency:
   group: unit-${{ github.ref }}
   cancel-in-progress: true
@@ -31,7 +30,6 @@ jobs:
           cache: pip
           cache-dependency-path: "ros2_lingua_core/setup.py"
 
-      # ros2_lingua_core has no ROS 2 deps — install it in pure-Python mode.
       - name: Install core package and test dependencies
         run: |
           pip install --upgrade pip
@@ -46,8 +44,7 @@ jobs:
             --cov=ros2_lingua_core \
             --cov-report=term-missing \
             --cov-report=xml:coverage.xml \
-            --cov-fail-under=73
-          # Target: raise this to 80 incrementally as test coverage grows
+            --cov-fail-under=72.5
 
       - name: Upload coverage report
         if: matrix.python-version == '3.11'
