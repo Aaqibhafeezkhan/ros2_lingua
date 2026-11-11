@@ -3,6 +3,8 @@ name: Apply Ruff fixes
 on:
   push:
     branches: [fix/issue-47-ci-quality]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
